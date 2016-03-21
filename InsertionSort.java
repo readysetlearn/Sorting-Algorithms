@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 package sortingalgorithms;
+=======
+package insertionsort;
+>>>>>>> 7fbc7d1b8b613c52a0e9f699a984c6b719e4c737
 
 
 public class InsertionSort {
