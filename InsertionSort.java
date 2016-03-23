@@ -3,7 +3,7 @@ package sortingalgorithms;
 public class InsertionSort {
 
     public static void main(String[] args) {
-        int[] sampleData = {0,5,15,5,-39,1};
+        int[] sampleData = ArrayGenerator.getRand();
         System.out.println("Unsorted array:");
         for(int i : sampleData)
             System.out.println("\t"+i);
@@ -15,7 +15,12 @@ public class InsertionSort {
     }
     
     public static void doSort(int[] arr) {
-        for(int i = 0; i < arr.length; i++) {
+        doSort(arr, 0, arr.length);
+    }
+    
+    /*sort arr from elements [low, high]*/
+    public static void doSort(int[] arr, int low, int high) {
+        for(int i = low+1; i < high; i++) {
             int value = arr[i];
             int j = i - 1;
             while(j >= 0 && arr[j] > value) {
