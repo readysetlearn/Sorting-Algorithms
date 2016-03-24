@@ -5,7 +5,7 @@ public class Quicksort {
 
 
     public static void main(String[] args) {
-        int[] test = ArrayGenerator.getRand();
+        int[] test = ArrayGenerator.getRand(1000, -1000, 1000);
         System.out.println("Unsorted array:");
         for(int i : test) {
             System.out.println(i);
@@ -14,6 +14,12 @@ public class Quicksort {
         System.out.println("Sorted array:");
         for(int i : test) {
             System.out.println(i);
+        }
+        
+        if(ArrayGenerator.isSorted(test)) {
+            System.out.println("Sorting worked correctly.");
+        } else {
+            System.out.println("Sorting went wrong.");
         }
     }
     
