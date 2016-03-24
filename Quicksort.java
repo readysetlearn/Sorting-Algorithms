@@ -5,7 +5,7 @@ public class Quicksort {
 
 
     public static void main(String[] args) {
-        int[] test = ArrayGenerator.getRand(200, -100, 100);
+        int[] test = ArrayGenerator.getRand();
         System.out.println("Unsorted array:");
         for(int i : test) {
             System.out.println(i);
@@ -33,7 +33,7 @@ public class Quicksort {
     
     /*Hoare's partition scheme*/
     private static int partition(int[] arr, int low, int high) {
-        int pivot = arr[low];//choose pivot as first element in array
+        int pivot = median(arr, low, high);
         int i = low - 1;
         int j = high + 1;
         for(;;) {//intentional infinte loop
@@ -48,6 +48,19 @@ public class Quicksort {
             }
             swap(arr, i, j);
         }
+    }
+    
+    /*sorts first, last and middle element and returns median*/
+    private static int median(int[] arr, int low, int high) {
+        int middle = (low + high) / 2;
+        if(arr[middle] < arr[low])
+            swap(arr, low, middle);
+        if(arr[high] < arr[low])
+            swap(arr, low, high );
+        if(arr[high] < arr[middle])
+            swap(arr, middle, high);
+
+        return arr[middle];
     }
     
     /*swam values in array*/
