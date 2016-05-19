@@ -33,7 +33,7 @@ public class BubbleSort {
                     n1 = i;
                 }
             }
-            n0 = n1;
+            n0 = n1;//remeber where last swap was done
         } while (n0 != 0);
     }
     
