@@ -51,10 +51,6 @@ public class ArrayGenerator {
     
     /*check if entire array is sorted in ascending order*/
     public static boolean isSorted(int[] arr) {
-        /*arrays of size less than 2 are considered sorted*/
-        if(arr.length < 2) {
-            return true;
-        }
         for(int i = 0; i < arr.length - 1; i++) {
             if(arr[i] > arr[i + 1]) {
                 return false;
@@ -65,14 +61,8 @@ public class ArrayGenerator {
     
     /*check if array is sorted in ascending order between indexes [min, max]*/
     public static boolean isSorted(int[] arr, int min, int max) {
-        /*arrays of size less than 2 are considered sorted*/
-        //System.out.println("inside isSorted");
-        if(max - min < 2) {
-            return true;
-        }
-        for(int i = min + 1; i <= max; i++) {
-            //System.out.println(arr[i]+" "+arr[i+1]);
-            if(arr[i] < arr[i - 1]) {
+        for(int i = 0; i < arr.length - 1; i++) {
+            if(arr[i] > arr[i + 1]) {
                 return false;
             }
         }
