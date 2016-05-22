@@ -9,7 +9,7 @@ public class ArrayGenerator {
     public static int[] getRand(int length, int min, int max) {
         int[] out = new int[length];
         for(int i = 0; i < length; i++) {
-            out[i] = min + rand.nextInt((max - min) + 1);
+            out[i] = min + RAND.nextInt((max - min) + 1);
         }
         return out;
     }
@@ -61,7 +61,7 @@ public class ArrayGenerator {
     
     /*check if array is sorted in ascending order between indexes [min, max]*/
     public static boolean isSorted(int[] arr, int min, int max) {
-        for(int i = 0; i < arr.length - 1; i++) {
+        for(int i = min; i < max - 1; i++) {
             if(arr[i] > arr[i + 1]) {
                 return false;
             }
@@ -69,5 +69,5 @@ public class ArrayGenerator {
         return true;
     }
     
-    private final static Random rand = new Random();
+    private final static Random RAND = new Random();
 }

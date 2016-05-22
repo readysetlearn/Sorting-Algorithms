@@ -5,7 +5,7 @@ package sortingalgorithms;
 public class MergeSort {
     
     public static void merge(int[] arr, int low, int mid, int high) {
-        // precondition: a[lo .. mid] and a[mid+1 .. hi] are sorted subarrays
+        // precondition: a[low .. mid] and a[mid+1 .. high] are sorted subarrays
         assert ArrayGenerator.isSorted(arr, low, mid);
         assert ArrayGenerator.isSorted(arr, mid+1, high);
 
@@ -15,7 +15,7 @@ public class MergeSort {
         }
 
         int i = low, j = mid + 1;//i points to left part of left half, j points to left point of right half        
-        for(int k = low; k < high; k++) {
+        for(int k = low; k <= high; k++) {
             if(i > mid) {
                 arr[k] = auxiliary[j++];//i pointer is exhausted
             } else if(j > high) {
@@ -28,12 +28,13 @@ public class MergeSort {
         }
         
         
-        // postcondition: a[lo .. hi] is sorted
+        // postcondition: a[low .. high] is sorted
         assert ArrayGenerator.isSorted(arr, low, high);
     }
 
     /*Top-down implementation of mergesort*/
     public static void sort(int[] a) {
+            auxiliary = new int[a.length];
             sort(a, 0, a.length-1);
     }
     
