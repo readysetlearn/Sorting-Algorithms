@@ -33,20 +33,32 @@ public class MergeSort {
     }
 
     /*Top-down implementation of mergesort*/
-    public static void sort(int[] a) {
+    public static void sort_td(int[] a) {
             auxiliary = new int[a.length];
-            sort(a, 0, a.length-1);
+            sort_td(a, 0, a.length-1);
     }
     
     /*Top-down implementation of mergesort*/
-    private static void sort(int[] a, int lo, int hi) {
+    private static void sort_td(int[] a, int lo, int hi) {
 	if (hi <= lo) {
             return;
 	}
         int mid = lo + (hi - lo) / 2;
-	sort(a, lo, mid);
-	sort(a, mid+1, hi);
+	sort_td(a, lo, mid);//recursive call
+	sort_td(a, mid+1, hi);//recursive call
 	merge(a, lo, mid, hi);
+    }
+    
+    /*Bottom-up implementation of merge sort*/
+    public static void sort_bu(int[] arr) {
+        final int N = arr.length;
+        auxiliary = new int[N];
+        /*sz is size of subarray, N is size of full array*/
+        for(int sz = 1; sz < N; sz = 2*sz) {//executes log(N) times
+            for(int low = 0; low < N - sz; low += 2*sz) {
+                merge(arr, low, (low + sz - 1), Math.min(low + 2*sz - 1, N - 1));//same merge() is used in bottom-up and top-down
+            }
+        }
     }
 
 

@@ -5,12 +5,12 @@ public class TestSort {
 
     public static void main(String[] args) {
                 
-        int[] sampleData = ArrayGenerator.getRand(20, -50, 50);        
+        int[] sampleData = ArrayGenerator.getRand(25, -10, 10);        
         
         for(int i : sampleData)
             System.out.println(i);
         System.out.println("---");
-        MergeSort.sort(sampleData);
+        MergeSort.sort_bu(sampleData);
         System.out.println("---");
         for(int i : sampleData)
             System.out.println(i);
