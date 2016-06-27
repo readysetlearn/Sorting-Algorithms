@@ -5,7 +5,7 @@ public class TestSort {
 
     public static void main(String[] args) {
                 
-        int[] sampleData = ArrayGenerator.getRand(25, -10, 10);        
+        int[] sampleData = ArrayGenerator.getRand(25, -100, 100);        
         
         for(int i : sampleData)
             System.out.println(i);

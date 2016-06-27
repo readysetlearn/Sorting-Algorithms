@@ -5,7 +5,7 @@ public class Quicksort {
 
 
     public static void main(String[] args) {
-        int[] test = ArrayGenerator.getRand(1000, -1000, 1000);
+        int[] test = ArrayGenerator.getRand(20, -10, 10);
         System.out.println("Unsorted array:");
         for(int i : test) {
             System.out.println(i);
@@ -26,9 +26,9 @@ public class Quicksort {
     /*main body of Quicksort*/
     public static void quicksort(int[] arr, int low, int high) {
         if(low < high) {
-            final int THRESH_HOLD = 10;//number at which insertion sort is used instead of quicksort
+            final int THRESH_HOLD = 5;//when to switch from quicksort to insertion sort
             if(high - low <= THRESH_HOLD) {
-                InsertionSort.doSort(arr);//use insertion sort on small arrays
+                InsertionSort.doSort(arr);//using insertionsort on small arrays is more efficent
             }
             int pivot = partition(arr, low, high);
             /*recursivley sort two subarrays*/
@@ -42,7 +42,7 @@ public class Quicksort {
         int pivot = median(arr, low, high);
         int i = low - 1;
         int j = high + 1;
-        for(;;) {//intentional infinte loop
+        for(;;) {//infinte loop
             do {
                 i++;
             } while (arr[i] < pivot);
@@ -66,6 +66,10 @@ public class Quicksort {
         if(arr[high] < arr[middle])
             swap(arr, middle, high);
 
+        System.out.println(arr[middle]+ " "+arr[high-1]);
+        swap(arr, middle, high - 1);//know middle will end up on right partition
+        System.out.println(arr[middle]+ " "+arr[high-1]);
+        
         return arr[middle];
     }
     
