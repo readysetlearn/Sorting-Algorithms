@@ -5,7 +5,7 @@ public class Quicksort {
 
 
     public static void main(String[] args) {
-        int[] test = ArrayGenerator.getRand(20, -10, 10);
+        int[] test = ArrayGenerator.getRand(150, -1000, 1000);
         System.out.println("Unsorted array:");
         for(int i : test) {
             System.out.println(i);
@@ -40,8 +40,12 @@ public class Quicksort {
     /*Hoare's partition scheme*/
     private static int partition(int[] arr, int low, int high) {
         int pivot = median(arr, low, high);
-        int i = low - 1;
-        int j = high + 1;
+        if(high - low <= 3)//median already sorts 3 so no need to continue
+            return high - 1;//not having this here may result in index out of range
+        
+        /*after first iterration of do while, i = low and j = high hence the -1/+1 */
+        int i = low - 1 + 1;//+1 b/c first element is on correct side of pivot
+        int j = high + 1 - 1 - 1;//-2 b/c last 2 elements are on correct side of pivot
         for(;;) {//infinte loop
             do {
                 i++;
@@ -58,6 +62,22 @@ public class Quicksort {
     
     /*sorts first, last and middle element and returns median*/
     private static int median(int[] arr, int low, int high) {
+        
+        //System.out.println("low: "+low+" high: "+high);
+        /*regular median fails if subarray is length less than 3*/
+        if(low == high) {
+            return arr[low];
+        } else if(high - low == 1) {
+            if(arr[low] > arr[high]) {
+              swap(arr, low, high);
+            }
+            return arr[low];
+        }
+            
+        if(high - low < 2) {//this should no longer happen
+            System.out.println("problem! low: "+low+" high: "+high);
+        }
+        
         int middle = (low + high) / 2;
         if(arr[middle] < arr[low])
             swap(arr, low, middle);
@@ -66,11 +86,11 @@ public class Quicksort {
         if(arr[high] < arr[middle])
             swap(arr, middle, high);
 
-        System.out.println(arr[middle]+ " "+arr[high-1]);
+
         swap(arr, middle, high - 1);//know middle will end up on right partition
-        System.out.println(arr[middle]+ " "+arr[high-1]);
-        
-        return arr[middle];
+
+        //return the middle value
+        return arr[high - 1];
     }
     
     /*swam values in array*/
