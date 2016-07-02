@@ -39,7 +39,7 @@ public class Quicksort {
     
     /*Hoare's partition scheme*/
     private static int partition(int[] arr, int low, int high) {
-        int pivot = median(arr, low, high);
+        int pivot = medianOf3(arr, low, high);
         if(high - low <= 3)//median already sorts 3 so no need to continue
             return high - 1;//not having this here may result in index out of range
         
@@ -60,37 +60,35 @@ public class Quicksort {
         }
     }
     
-    /*sorts first, last and middle element and returns median*/
-    private static int median(int[] arr, int low, int high) {
-        
-        //System.out.println("low: "+low+" high: "+high);
-        /*regular median fails if subarray is length less than 3*/
-        if(low == high) {
-            return arr[low];
-        } else if(high - low == 1) {
-            if(arr[low] > arr[high]) {
-              swap(arr, low, high);
+    /*sorts the first, last and middle elements of subarray [start, end]
+    * places median value at position end - 1
+    * returns median value
+    */
+     public static int medianOf3(int[] data, int start, int end) {
+        if(end - start == 0) {
+            return data[start];
+        }else if(end - start == 1) {
+            if(data[start] > data[end]) {
+                swap(data, start, end);
             }
-            return arr[low];
+            return data[end];//return higher value for arrays of length 2
         }
-            
-        if(high - low < 2) {//this should no longer happen
-            System.out.println("problem! low: "+low+" high: "+high);
-        }
+	
+        int middle = start + ((end-start)/2);
         
-        int middle = (low + high) / 2;
-        if(arr[middle] < arr[low])
-            swap(arr, low, middle);
-        if(arr[high] < arr[low])
-            swap(arr, low, high );
-        if(arr[high] < arr[middle])
-            swap(arr, middle, high);
+        if (data[start] > data[end])
+           swap(data, start, end);
 
+        if (data[start] > data[middle])
+           swap(data, start, middle);
 
-        swap(arr, middle, high - 1);//know middle will end up on right partition
-
-        //return the middle value
-        return arr[high - 1];
+        if (data[middle] > data[end])
+           swap(data, middle, end);
+        
+        swap(data, middle, end - 1);//know middle will end up on right partition
+        
+        return data[end - 1];//return the middle value
+        
     }
     
     /*swam values in array*/
