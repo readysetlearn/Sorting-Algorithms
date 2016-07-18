@@ -2,26 +2,6 @@ package sortingalgorithms;
 
 
 public class Quicksort {
-
-
-    public static void main(String[] args) {
-        int[] test = ArrayGenerator.getRand(150, -1000, 1000);
-        System.out.println("Unsorted array:");
-        for(int i : test) {
-            System.out.println(i);
-        }
-        quicksort(test, 0, test.length-1);
-        System.out.println("Sorted array:");
-        for(int i : test) {
-            System.out.println(i);
-        }
-        
-        if(ArrayGenerator.isSorted(test)) {
-            System.out.println("Sorting worked correctly.");
-        } else {
-            System.out.println("Sorting went wrong.");
-        }
-    }
     
     /*main body of Quicksort*/
     public static void quicksort(int[] arr, int low, int high) {
@@ -64,7 +44,7 @@ public class Quicksort {
     * places median value at position end - 1
     * returns median value
     */
-     public static int medianOf3(int[] data, int start, int end) {
+     private static int medianOf3(int[] data, int start, int end) {
         if(end - start == 0) {
             return data[start];
         }else if(end - start == 1) {
