@@ -6,14 +6,19 @@ import java.util.NoSuchElementException;
 public class Heapsort {
     
     public static void main(String[] args) {
-        int[] sample = {20,2,3,5,9,8,1,5};
+        int[] sample = {20,2,88,3,5,9,8,1,5};
         Heapsort heap = new Heapsort(sample.length);
         for(int i : sample) {
             heap.insert(i);
         }
         
         for(int i = 0; i < sample.length; i++) {
-            System.out.println(heap.removeMax());
+            heap.removeMax();
+        }
+        
+        int[] sorted = heap.getHeapArray();
+        for(int i = 1; i < sorted.length; i++) {//i = whatever FRONT is (but can't reference non-static from static context)
+            System.out.println(sorted[i]);
         }
     }
     
@@ -113,12 +118,12 @@ public class Heapsort {
     }
 
     /*remove and return the max value (the root)*/
-    public int removeMax() {
+    public void removeMax() {
+        
         final int MAX = heap[FRONT];
         heap[FRONT] = heap[end--];
         heapifyDown(FRONT);
-
-        return MAX;
+        heap[end + 1] = MAX;
     }
     
     
