@@ -7,19 +7,20 @@ import java.util.NoSuchElementException;
 public final class Heapsort {
     
     public static void main(String[] args) {
-        int[] sample = {10,5,6,4};
+        int[] sample = {3,1,2};
         Heapsort heap = new Heapsort(sample);
+        System.out.println(Arrays.toString(sample));
     }
     
-    public Heapsort(final int[] arr) {
-        heap = new int[arr.length + FRONT];//extra element at front simplifies calculations (http://stackoverflow.com/questions/22900388/why-in-a-heap-implemented-by-array-the-index-0-is-left-unused)
-        /*copy array to "heap"*/
+    public Heapsort(final int[] toSort) {
+        heap = new int[toSort.length + FRONT];//extra element at front simplifies calculations (http://stackoverflow.com/questions/22900388/why-in-a-heap-implemented-by-array-the-index-0-is-left-unused)
+        /*copy array to "heap" (binary tree)*/
         for(int i = FRONT; i < heap.length; i++) {
-            heap[i] = arr[i-FRONT];
+            heap[i] = toSort[i-FRONT];
         }
         
-        end = heap.length - 1;//not sure if this is right
-        heapSize = arr.length - 1;//maybe should be -1 here
+        end = heap.length - 1;
+        heapSize = toSort.length;
         buildMaxHeap();
         
         for(int i = heapSize; i >= FRONT; i--) {         
@@ -27,8 +28,9 @@ public final class Heapsort {
             heapifyDown(FRONT);
         }
         
-        for(int i = FRONT; i < heap.length; i++)
-            System.out.print(heap[i]+",");
+        for(int i = FRONT; i < heap.length; i++) {//copy sorted array back to original
+            toSort[i - FRONT] = heap[i];
+        }
         
     }
     
@@ -36,7 +38,7 @@ public final class Heapsort {
     that will latter be ordered into a heap*/
     private void buildMaxHeap() {
         for(int i = heapSize / 2; i >= FRONT; i--) {
-            heapifyDown(i);//aka maxHeapify
+            heapifyDown(i);//aka siftDown, bubleDown
         }
     }
     /*
@@ -105,7 +107,7 @@ public final class Heapsort {
     }
     
     public void pprint() {
-        for (int i = FRONT; i <= (int)Math.floor(end / 2); i++) {
+        for (int i = FRONT; i <= end / 2; i++) {//can start at end/2 as any lower would have no children
             System.out.print("Parent: " + heap[i] + " Left child: " + heap[2 * i]);
             if(2 * i + 1 <= end) {//must check as parent may have no right child
                     System.out.print(" Right child: " + heap[2 * i  + 1]);
