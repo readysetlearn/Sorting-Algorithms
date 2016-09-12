@@ -25,7 +25,7 @@ public final class Heapsort {
         
         for(int i = heapSize; i >= FRONT; i--) {         
             removeMax();
-            heapifyDown(FRONT);
+            siftDown(FRONT);
         }
         
         for(int i = FRONT; i < heap.length; i++) {//copy sorted array back to original
@@ -38,23 +38,64 @@ public final class Heapsort {
     that will latter be ordered into a heap*/
     private void buildMaxHeap() {
         for(int i = heapSize / 2; i >= FRONT; i--) {
-            heapifyDown(i);//aka siftDown, bubleDown
+            siftDown(i);//aka heapifyDown, bubbleDown
         }
     }
-    /*
-    private void maxHeapify(int i) {
-        
-    }*/
     
-    public void insert(final int key) {//in heaps, the value being stored is called the "key"
-        if(end == heapSize) {//TODO: since heapSize is no longer final, this method may need to change
-            throw new NoSuchElementException("heap is full");
+        /*compares node at position with its children and
+    swaps it with the largest child if its larger than it*/
+    private void siftDown(int position) {
+        /*pesudeocode:
+            while(position has leaf) {
+                choose largest leaf
+                if bigger than swap
+                else break
+            }
+        */
+        //TODO: since start in middle knowing there are leafs, maybe can skip step for checking if node has leaf
+        //refer to second pseudocode portion of https://en.wikipedia.org/wiki/Heapsort#Pseudocode
+        while(!isLeaf(position)) {
+            //get largest of children
+            int largestChildIndex;
+            if(getRightChildIndex(position) <= end) {//check if node has a right child
+                if(heap[getLeftChildIndex(position)] > heap[getRightChildIndex(position)]) {
+                    largestChildIndex = getLeftChildIndex(position);
+                } else {
+                    largestChildIndex = getRightChildIndex(position);
+                }
+            } else {//no right child
+                largestChildIndex = getLeftChildIndex(position);
+            }
+            //check if child is larger than parent
+            if(heap[position] < heap[largestChildIndex]) {
+                //if it is, then swap
+                swap(position, largestChildIndex);
+                position = largestChildIndex;
+            } else {
+                //if it's not, heap property is satisfied
+                break;
+            }
         }
-        
+    }
+    
+    public void insert(final int key) {//in heaps, the value being stored is called the "key"    
         heap[++end] = key;
         heapifyUp(end); 
+    }
+    
+    /*consider maknig this a public method,
+    so that the user can insert a bunch of keys
+    and only have to heapify once*/
+    private void heapifyUp(int position) {//this function could be written in a recursive way
+        int childIndx = position;
+        int newKey = heap[childIndx];
         
-
+        while(childIndx > FRONT && newKey > heap[getParentIndx(childIndx)]) {
+            heap[childIndx] = heap[getParentIndx(childIndx)];
+            childIndx = getParentIndx(childIndx);
+        }
+        
+        heap[childIndx] = newKey;
     }
     
     /*INPUT i: index of child*/
@@ -82,21 +123,6 @@ public final class Heapsort {
         int temp = heap[i];
         heap[i] = heap[j];
         heap[j] = temp;
-    }
-    
-    /*consider maknig this a public method,
-    so that the user can insert a bunch of keys
-    and only have to heapify once*/
-    private void heapifyUp(int position) {//this function could be written in a recursive way
-        int childIndx = position;
-        int newKey = heap[childIndx];
-        
-        while(childIndx > FRONT && newKey > heap[getParentIndx(childIndx)]) {
-            heap[childIndx] = heap[getParentIndx(childIndx)];
-            childIndx = getParentIndx(childIndx);
-        }
-        
-        heap[childIndx] = newKey;
     }
     
     /*display contents of heap, including unused first element*/
@@ -140,46 +166,10 @@ public final class Heapsort {
         
         final int MAX = heap[FRONT];
         heap[FRONT] = heap[end--];
-        heapifyDown(FRONT);
+        siftDown(FRONT);
         heap[end + 1] = MAX;
         
         //return MAX;
-    }
-    
-    
-    /*compares node at position with its children and
-    swaps it with the largest child if its larger than it*/
-    private void heapifyDown(int position) {
-        /*pesudeocode:
-            while(position has leaf) {
-                choose largest leaf
-                if bigger than swap
-                else break
-            }
-        */
-        //TODO: since start in middle knowing there are leafs, maybe can skip step for checking if node has leaf
-        while(!isLeaf(position)) {
-            //get largest of children
-            int largestChildIndex;
-            if(getRightChildIndex(position) <= end) {//check if node has a right child
-                if(heap[getLeftChildIndex(position)] > heap[getRightChildIndex(position)]) {
-                    largestChildIndex = getLeftChildIndex(position);
-                } else {
-                    largestChildIndex = getRightChildIndex(position);
-                }
-            } else {//no right child
-                largestChildIndex = getLeftChildIndex(position);
-            }
-            //check if child is larger than parent
-            if(heap[position] < heap[largestChildIndex]) {
-                //if it is, then swap
-                swap(position, largestChildIndex);
-                position = largestChildIndex;
-            } else {
-                //if it's not, heap property is satisfied
-                break;
-            }
-        }
     }
     
     /*return the heap as array*/
@@ -190,6 +180,6 @@ public final class Heapsort {
     
     private final int[] heap;//array where keys(values) are stored
     private int end;//pointer to last used element
-    private int heapSize;//space used by heap
+    private final int heapSize;//space used by heap
     private final int FRONT = 1;//first key is inserted at index 1, not 0
 }
