@@ -6,13 +6,7 @@ import java.util.NoSuchElementException;
 
 public final class Heapsort {
     
-    public static void main(String[] args) {
-        int[] sample = {3,1,2};
-        Heapsort heap = new Heapsort(sample);
-        System.out.println(Arrays.toString(sample));
-    }
-    
-    public Heapsort(final int[] toSort) {
+    public static void heapsort(final int[] toSort) {
         heap = new int[toSort.length + FRONT];//extra element at front simplifies calculations (http://stackoverflow.com/questions/22900388/why-in-a-heap-implemented-by-array-the-index-0-is-left-unused)
         /*copy array to "heap" (binary tree)*/
         for(int i = FRONT; i < heap.length; i++) {
@@ -36,7 +30,7 @@ public final class Heapsort {
     
     /*build a binary tree putting values into arbitrary nodes
     that will latter be ordered into a heap*/
-    private void buildMaxHeap() {
+    private static void buildMaxHeap() {
         for(int i = heapSize / 2; i >= FRONT; i--) {
             siftDown(i);//aka heapifyDown, bubbleDown
         }
@@ -44,7 +38,7 @@ public final class Heapsort {
     
         /*compares node at position with its children and
     swaps it with the largest child if its larger than it*/
-    private void siftDown(int position) {
+    private static void siftDown(int position) {
         /*pesudeocode:
             while(position has leaf) {
                 choose largest leaf
@@ -78,15 +72,15 @@ public final class Heapsort {
         }
     }
     
-    public void insert(final int key) {//in heaps, the value being stored is called the "key"    
+    public static void insert(final int key) {//in heaps, the value being stored is called the "key"    
         heap[++end] = key;
         heapifyUp(end); 
     }
     
-    /*consider maknig this a public method,
+    /*consider maknig this a public static method,
     so that the user can insert a bunch of keys
     and only have to heapify once*/
-    private void heapifyUp(int position) {//this function could be written in a recursive way
+    private static void heapifyUp(int position) {//this function could be written in a recursive way
         int childIndx = position;
         int newKey = heap[childIndx];
         
@@ -99,40 +93,40 @@ public final class Heapsort {
     }
     
     /*INPUT i: index of child*/
-    private int getParentIndx(final int i) {
+    private static int getParentIndx(final int i) {
         return (i / 2);
     }
     
     /*INPUT i: index of parent*/
-    private int getLeftChildIndex(final int i) {
+    private static int getLeftChildIndex(final int i) {
         return (i * 2);
     }
     
     /*INPUT i: index of parent*/
-    private int getRightChildIndex(final int i) {
+    private static int getRightChildIndex(final int i) {
         return (i * 2 + 1);
     }
     
     /*return true if node at position is leaf*/
-    private boolean isLeaf(int position) {
+    private static boolean isLeaf(int position) {
         return ((2 * position) > end);
     }
     
     /*swap two elements in heap*/
-    private void swap(int i, int j) {
+    private static void swap(int i, int j) {
         int temp = heap[i];
         heap[i] = heap[j];
         heap[j] = temp;
     }
     
     /*display contents of heap, including unused first element*/
-    public void dump() {
+    public static void dump() {
         for(int i = 0; i <= end; i++) {
             System.out.println("index: " +i+ " key: "+heap[i]);
          }
     }
     
-    public void pprint() {
+    public static void pprint() {
         for (int i = FRONT; i <= end / 2; i++) {//can start at end/2 as any lower would have no children
             System.out.print("Parent: " + heap[i] + " Left child: " + heap[2 * i]);
             if(2 * i + 1 <= end) {//must check as parent may have no right child
@@ -144,13 +138,13 @@ public final class Heapsort {
     }
     
     /*returns number of nodes*/
-    public int getSize() {
+    public static int getSize() {
         return end;
     }
     
     /*returns true iff array has heap property*/
     /*consider making this a static method so any array can be tested*/
-    public boolean isHeap() {
+    public static boolean isHeap() {
         for(int i = FRONT; i <= end / 2; i++) {            
             if (2 * i + 1 <= end && heap[i] < heap[2 * i + 1] || heap[i] < heap[2 * i]) {
                 return false;
@@ -162,7 +156,7 @@ public final class Heapsort {
     }
 
     /*removes largest element and puts at end of array and decreases heap size*/
-    public void removeMax() {
+    public static void removeMax() {
         
         final int MAX = heap[FRONT];
         heap[FRONT] = heap[end--];
@@ -173,13 +167,13 @@ public final class Heapsort {
     }
     
     /*return the heap as array*/
-    public int[] getHeapArray() {
+    public static int[] getHeapArray() {
         return heap;
     }
     
     
-    private final int[] heap;//array where keys(values) are stored
-    private int end;//pointer to last used element
-    private final int heapSize;//space used by heap
-    private final int FRONT = 1;//first key is inserted at index 1, not 0
+    private static int[] heap;//array where keys(values) are stored
+    private static int end;//pointer to last used element
+    private static int heapSize;//space used by heap
+    private static final int FRONT = 1;//first key is inserted at index 1, not 0
 }
