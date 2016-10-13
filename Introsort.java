@@ -16,8 +16,20 @@ public class Introsort {
     INPUT arr: array to be sorted
     */
     public static void sort(int[] arr) {
-        MAX_DEPTH =  (int)Math.floor(Math.log(arr.length) / Math.log(2));
-        //sort(int[] arr, 0, arr.length);
+        maxDepth =  (int)Math.floor(Math.log(arr.length) / Math.log(2)) * 2;
+        introsort(int[] arr, 0, arr.length);
+    }
+    
+    public static void introsort(int[] arr) {
+        int n = arr.length;
+        if(n <= 1) { //base case
+            return;
+        }
+        else if(maxDepth == 0) {
+            Heapsort.heapsort(arr);
+        } else {
+            maxDepth--;
+        }
     }
     
     /*
@@ -29,5 +41,5 @@ public class Introsort {
         
     }
     
-    private static int MAX_DEPTH;
+    private static int maxDepth;
 }
