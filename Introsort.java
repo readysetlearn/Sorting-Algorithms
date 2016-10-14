@@ -1,21 +1,31 @@
-//currently this code is just a copy of Quicksort
 package sortingalgorithms;
 
 
 public class Introsort {
     
-    /*main body of Quicksort*/
-    public static void quicksort(int[] arr, int low, int high) {
-        if(low < high) {
-            final int THRESH_HOLD = 5;//when to switch from quicksort to insertion sort
+    /*this method should be called first*/
+    public static void sort(int[] arr) {
+ 
+        final int maxDepth = 2 * (int)Math.floor(Math.log(arr.length) / Math.log(2));
+        introsort(arr, 0, arr.length - 1, maxDepth);
+    }
+    
+    /*main loop of introsort*/
+    /* INPUT maxDepth: level of recusion reached before switching from quicksort to heapsort*/
+    private static void introsort(int[] arr, int low, int high, final int maxDepth) {
+        if(maxDepth == 0) {
+            Heapsort.heapsort(arr, low, high);
+        }
+        else if(low < high) {
+            final int THRESH_HOLD = 5;//when to switch from introsort to insertion sort
             if(high - low <= THRESH_HOLD) {
                 InsertionSort.doSort(arr);//using insertionsort on small arrays is more efficent
             }
             int pivot = partition(arr, low, high);
             /*recursivley sort two subarrays*/
-            quicksort(arr, low, pivot);
-            quicksort(arr, pivot + 1, high);
-        }
+            introsort(arr, low, pivot, maxDepth - 1);
+            introsort(arr, pivot + 1, high, maxDepth - 1);
+        }//else base case reached as length is 1
     }
     
     /*Hoare's partition scheme*/
@@ -78,5 +88,5 @@ public class Introsort {
         arr[i] = arr[j];
         arr[j] = temp;        
     }
-    
+
 }
