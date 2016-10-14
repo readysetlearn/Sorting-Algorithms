@@ -17,14 +17,15 @@ public final class Heapsort {
     OUTPUT data: the array is now in sorted order
     */
     public static void heapsort(final int[] data, final int fromIndx, final int toIndx) {
-        heap = new int[toIndx - fromIndx + FRONT];//extra element at front simplifies calculations (http://stackoverflow.com/questions/22900388/why-in-a-heap-implemented-by-array-the-index-0-is-left-unused)
+        // adding extra element with +FRONT makes calculations simpler, +1 at end is because arrays start at 0 (and here it's setting size)
+        heap = new int[toIndx - fromIndx + FRONT + 1];
         /*copy array to "heap" (binary tree)*/
         for(int i = fromIndx + FRONT; i < heap.length; i++) {
-            heap[i] = data[i-FRONT];
+            heap[i] = data[i - FRONT];
         }
         
         end = heap.length - 1;
-        heapSize = toIndx - fromIndx;
+        heapSize = toIndx - fromIndx + 1;//+1 b/c arrays start at 0 and here we are concerned with size
         buildMaxHeap();
         
         for(int i = heapSize; i >= FRONT; i--) {         
