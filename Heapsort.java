@@ -6,15 +6,25 @@ import java.util.NoSuchElementException;
 
 public final class Heapsort {
     
-    public static void heapsort(final int[] toSort) {
-        heap = new int[toSort.length + FRONT];//extra element at front simplifies calculations (http://stackoverflow.com/questions/22900388/why-in-a-heap-implemented-by-array-the-index-0-is-left-unused)
+    public static void heapsort(final int[] data) {
+        heapsort(data, 0, data.length - 1);
+    }
+    
+    /*
+    INPUT data: array of data to be sorted
+    INPUT fromIndx: index of first element to be sorted
+    INPUT toIndx: index of last element to be sorted
+    OUTPUT data: the array is now in sorted order
+    */
+    public static void heapsort(final int[] data, final int fromIndx, final int toIndx) {
+        heap = new int[toIndx - fromIndx + FRONT];//extra element at front simplifies calculations (http://stackoverflow.com/questions/22900388/why-in-a-heap-implemented-by-array-the-index-0-is-left-unused)
         /*copy array to "heap" (binary tree)*/
-        for(int i = FRONT; i < heap.length; i++) {
-            heap[i] = toSort[i-FRONT];
+        for(int i = fromIndx + FRONT; i < heap.length; i++) {
+            heap[i] = data[i-FRONT];
         }
         
         end = heap.length - 1;
-        heapSize = toSort.length;
+        heapSize = toIndx - fromIndx;
         buildMaxHeap();
         
         for(int i = heapSize; i >= FRONT; i--) {         
@@ -23,7 +33,7 @@ public final class Heapsort {
         }
         
         for(int i = FRONT; i < heap.length; i++) {//copy sorted array back to original
-            toSort[i - FRONT] = heap[i];
+            data[i - FRONT] = heap[i];
         }
         
     }
