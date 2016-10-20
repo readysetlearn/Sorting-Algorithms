@@ -11,7 +11,12 @@ public class Introsort {
     }
     
     /*main loop of introsort*/
-    /* INPUT maxDepth: level of recusion reached before switching from quicksort to heapsort*/
+    /*
+    * INPUT arr: data to be sorted
+    * INPUT low: index of first element of arr to be sorted (inclusive)
+    * INPUT hihg: index of last element of arr to be sorted (inclusive)
+    * INPUT maxDepth: level of recusion reached before switching from quicksort to heapsort
+    */
     private static void introsort(int[] arr, int low, int high, final int maxDepth) {
         if(maxDepth == 0) {
             Heapsort.heapsort(arr, low, high);

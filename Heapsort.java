@@ -1,8 +1,5 @@
 package sortingalgorithms;
 
-import java.util.Arrays;
-import java.util.NoSuchElementException;
-
 
 public final class Heapsort {
     
@@ -20,8 +17,8 @@ public final class Heapsort {
         // adding extra element with +FRONT makes calculations simpler, +1 at end is because arrays start at 0 (and here it's setting size)
         heap = new int[toIndx - fromIndx + FRONT + 1];
         /*copy array to "heap" (binary tree)*/
-        for(int i = fromIndx + FRONT; i < heap.length; i++) {
-            heap[i] = data[i - FRONT];
+        for(int i = FRONT; i < heap.length; i++) {
+            heap[i] = data[i - FRONT + fromIndx];
         }
         
         end = heap.length - 1;
@@ -34,7 +31,7 @@ public final class Heapsort {
         }
         
         for(int i = FRONT; i < heap.length; i++) {//copy sorted array back to original
-            data[i - FRONT] = heap[i];
+            data[i - FRONT + fromIndx] = heap[i];
         }
         
     }
