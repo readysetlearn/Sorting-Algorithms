@@ -78,17 +78,17 @@ public class ArrayGenerator {
         int[] out = getSorted(length, min, max);
         for(int i = 0; i < n; i++) {
             int x, y;
-            x = RAND.nextInt((max - min) + 1);
-            y = RAND.nextInt((max - min) + 1);
+            x = RAND.nextInt(length);
+            y = RAND.nextInt(length);
             while(x == y) {//prevent case of swapping element with itself
-                y = RAND.nextInt((max - min) + 1);
+                y = RAND.nextInt(length);
             }
             int temp = out[x];
             out[x] = out[y];
             out[y] = temp;
         }
         
-        if(isSorted(out)) {//if output turned out sorted, repeat call to this function
+        if(isSorted(out)) {//if output turned out sorted, repeat call to this functionArr
             return getPartialSorted(n, length, min, max);
         }
         
