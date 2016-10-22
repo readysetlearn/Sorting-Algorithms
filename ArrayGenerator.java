@@ -29,6 +29,7 @@ public class ArrayGenerator {
         return getSorted(10, -10, 10); 
     }
     
+    /*returns array in reverse sorted order*/
     public static int[] getReverseSorted(int length, int min, int max) {
         int[] out = getSorted(length, min, max);
         reverse(out);
@@ -69,5 +70,30 @@ public class ArrayGenerator {
         return true;
     }
     
+    /*create an array, sort it, then add n number of inversions*/
+    public static int[] getPartialSorted(int n, int length, int min, int max) {
+        if(length < 2) {//array of less than 2 elements can't have inversion
+            throw new IllegalArgumentException("length must be greater or equal to 2");
+        }
+        int[] out = getSorted(length, min, max);
+        for(int i = 0; i < n; i++) {
+            int x, y;
+            x = RAND.nextInt((max - min) + 1);
+            y = RAND.nextInt((max - min) + 1);
+            while(x == y) {//prevent case of swapping element with itself
+                y = RAND.nextInt((max - min) + 1);
+            }
+            int temp = out[x];
+            out[x] = out[y];
+            out[y] = temp;
+        }
+        
+        if(isSorted(out)) {//if output turned out sorted, repeat call to this function
+            return getPartialSorted(n, length, min, max);
+        }
+        
+        return out;
+    }
+            
     private final static Random RAND = new Random();
 }
