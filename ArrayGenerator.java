@@ -71,6 +71,9 @@ public class ArrayGenerator {
     }
     
     /*create an array, sort it, then add n number of inversions*/
+    /*need to change method so that it only counts final # of inversions
+    the way it works now doesn't make sense
+    */
     public static int[] getPartialSorted(int n, int length, int min, int max) {
         if(length < 2) {//array of less than 2 elements can't have inversion
             throw new IllegalArgumentException("length must be greater or equal to 2");
