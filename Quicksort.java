@@ -54,7 +54,7 @@ public class Quicksort {
             return data[end];//return higher value for arrays of length 2
         }
 	
-        int middle = start + ((end-start)/2);
+        int middle = (start + end) >>> 1;//preventing integer overflow in (start + end) / 2
         
         if (data[start] > data[end])
            swap(data, start, end);
