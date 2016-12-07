@@ -9,11 +9,16 @@ public class TestSort {
         
         for(int i : sampleData)
             System.out.println(i);
-        System.out.println("---");
+        //time how long sorting takes
+        final long startTime = System.nanoTime();
         MergeSort.sort_bu(sampleData);
+        final long endTime = System.nanoTime();
+        
+        System.out.println("---");
         System.out.println("---");
         for(int i : sampleData)
             System.out.println(i);
+        System.out.println("Sorting execution time: " + (endTime - startTime));
         if(ArrayGenerator.isSorted(sampleData))
             System.out.println("SORTED");
         else
