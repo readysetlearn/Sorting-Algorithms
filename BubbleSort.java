@@ -1,26 +1,6 @@
 package sortingalgorithms;
 
 public class BubbleSort {
-
-    public static void main(String[] args) {
-        int[] test = ArrayGenerator.getRand();
-                System.out.println("Unsorted array:");
-        for(int i : test) {
-            System.out.println(i);
-        }
-        bs(test);
-        System.out.println("Sorted array:");
-        for(int i : test) {
-            System.out.println(i);
-        }
-        
-        if(ArrayGenerator.isSorted(test)) {
-            System.out.println("Sorting worked correctly.");
-        } else {
-            System.out.println("Sorting went wrong.");
-        }
-
-    }
     
     /*do bublesort*/
     public static void bs(int[] arr) {

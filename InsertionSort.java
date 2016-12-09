@@ -1,18 +1,6 @@
 package sortingalgorithms;
 
 public class InsertionSort {
-
-    public static void main(String[] args) {
-        int[] sampleData = ArrayGenerator.getRand();
-        System.out.println("Unsorted array:");
-        for(int i : sampleData)
-            System.out.println("\t"+i);
-        doSort(sampleData);
-        System.out.println("Sorted array:");
-        for(int i : sampleData)
-            System.out.println("\t"+i);
-        
-    }
     
     public static void doSort(int[] arr) {
         doSort(arr, 0, arr.length);
